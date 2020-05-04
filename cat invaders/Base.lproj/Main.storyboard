@@ -100,7 +100,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="spaceship" translatesAutoresizingMaskIntoConstraints="NO" id="JSQ-H7-hgW">
-                                <rect key="frame" x="87" y="709" width="240" height="128"/>
+                                <rect key="frame" x="142" y="709" width="130" height="130"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
                         </subviews>
@@ -117,6 +117,7 @@
                     <navigationItem key="navigationItem" id="w1O-7y-ulo"/>
                     <connections>
                         <outlet property="scoreLabel" destination="dFg-4d-jOU" id="3H4-fE-70g"/>
+                        <outlet property="spaceShip" destination="JSQ-H7-hgW" id="dXW-fE-jvM"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="PON-Mm-Ynb" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
