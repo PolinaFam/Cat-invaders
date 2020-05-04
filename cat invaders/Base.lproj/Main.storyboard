@@ -6,32 +6,127 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Game View Controller-->
+        <!--Menu View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="GameViewController" customModule="cat_invaders" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="BYZ-38-t0r" customClass="MenuViewController" customModule="cat_invaders" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="YTA-vQ-nkO"/>
-                        <viewControllerLayoutGuide type="bottom" id="gYw-JN-p2r"/>
+                        <viewControllerLayoutGuide type="top" id="HoI-5s-kes"/>
+                        <viewControllerLayoutGuide type="bottom" id="Vzw-Q3-OQC"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="background" translatesAutoresizingMaskIntoConstraints="NO" id="m7u-cd-pM5">
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="background" translatesAutoresizingMaskIntoConstraints="NO" id="m7u-cd-pM5">
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="cat-logo" translatesAutoresizingMaskIntoConstraints="NO" id="D9L-ex-UY0">
+                                <rect key="frame" x="25" y="241" width="364" height="267"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="364" id="TBN-ud-cHz"/>
+                                    <constraint firstAttribute="height" constant="267" id="cI5-vZ-9bB"/>
+                                </constraints>
+                            </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="q00-vN-o1X">
+                                <rect key="frame" x="77" y="559" width="260" height="53"/>
+                                <fontDescription key="fontDescription" style="UICTFontTextStyleTitle0"/>
+                                <state key="normal" title="PRESS TO START">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                                <connections>
+                                    <segue destination="3zv-zf-6C5" kind="presentation" modalPresentationStyle="fullScreen" id="M1A-kD-jgh"/>
+                                </connections>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Cat Invaders" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OYK-9g-yEr">
+                                <rect key="frame" x="37" y="52" width="340" height="170"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" name="Chalkduster" family="Chalkduster" pointSize="60"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstAttribute="trailingMargin" secondItem="q00-vN-o1X" secondAttribute="trailing" constant="57" id="DHG-re-CNw"/>
+                            <constraint firstItem="m7u-cd-pM5" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="Pt2-3l-8je"/>
+                            <constraint firstAttribute="bottom" secondItem="m7u-cd-pM5" secondAttribute="bottom" id="XKV-jD-yqu"/>
+                            <constraint firstItem="D9L-ex-UY0" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="5" id="au5-2q-iT4"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="q00-vN-o1X" secondAttribute="trailing" constant="57" id="avy-2b-4Cs"/>
+                            <constraint firstItem="q00-vN-o1X" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="57" id="bzh-wt-5ZT"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="D9L-ex-UY0" secondAttribute="trailing" constant="5" id="ggq-Ms-ZW8"/>
+                            <constraint firstItem="q00-vN-o1X" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="57" id="j5c-7o-D4E"/>
+                            <constraint firstAttribute="trailing" secondItem="m7u-cd-pM5" secondAttribute="trailing" id="jOy-c5-1yP"/>
+                            <constraint firstItem="q00-vN-o1X" firstAttribute="top" secondItem="D9L-ex-UY0" secondAttribute="bottom" constant="51" id="lgU-eW-73f"/>
+                            <constraint firstItem="m7u-cd-pM5" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="rBw-Dd-FsR"/>
+                            <constraint firstItem="D9L-ex-UY0" firstAttribute="top" secondItem="HoI-5s-kes" secondAttribute="bottom" constant="197" id="rdl-cG-dKe"/>
+                        </constraints>
                     </view>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="131.8840579710145" y="101.78571428571428"/>
         </scene>
+        <!--Game View Controller-->
+        <scene sceneID="2i3-Uo-t4M">
+            <objects>
+                <viewController id="3zv-zf-6C5" customClass="GameViewController" customModule="cat_invaders" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="980-gs-GLb"/>
+                        <viewControllerLayoutGuide type="bottom" id="hIf-MA-HKF"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="WB7-XB-aeH">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="background" translatesAutoresizingMaskIntoConstraints="NO" id="Nn6-Cb-8Yr">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Score:" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2cR-x6-2oz">
+                                <rect key="frame" x="33" y="52" width="64" height="28"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="28" id="a3x-q9-mem"/>
+                                    <constraint firstAttribute="width" constant="64" id="bYx-Lb-Fb0"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="23"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="1234" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dFg-4d-jOU">
+                                <rect key="frame" x="105" y="53" width="53" height="27.5"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="23"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="spaceship" translatesAutoresizingMaskIntoConstraints="NO" id="JSQ-H7-hgW">
+                                <rect key="frame" x="87" y="709" width="240" height="128"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </imageView>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="Nn6-Cb-8Yr" firstAttribute="top" secondItem="WB7-XB-aeH" secondAttribute="top" id="6mf-kT-5gV"/>
+                            <constraint firstItem="Nn6-Cb-8Yr" firstAttribute="leading" secondItem="WB7-XB-aeH" secondAttribute="leading" id="7Ir-NZ-oks"/>
+                            <constraint firstAttribute="bottom" secondItem="Nn6-Cb-8Yr" secondAttribute="bottom" id="Omc-2s-Ovz"/>
+                            <constraint firstAttribute="trailing" secondItem="Nn6-Cb-8Yr" secondAttribute="trailing" id="OxX-b7-WzI"/>
+                            <constraint firstItem="2cR-x6-2oz" firstAttribute="top" secondItem="980-gs-GLb" secondAttribute="bottom" constant="8" id="RhQ-Yr-r6z"/>
+                            <constraint firstItem="2cR-x6-2oz" firstAttribute="leading" secondItem="WB7-XB-aeH" secondAttribute="leadingMargin" constant="13" id="wkf-nn-vvo"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="w1O-7y-ulo"/>
+                    <connections>
+                        <outlet property="scoreLabel" destination="dFg-4d-jOU" id="3H4-fE-70g"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="PON-Mm-Ynb" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="884.05797101449286" y="101.78571428571428"/>
+        </scene>
     </scenes>
     <resources>
         <image name="background" width="540" height="960"/>
+        <image name="cat-logo" width="360" height="360"/>
+        <image name="spaceship" width="754" height="754"/>
     </resources>
 </document>
