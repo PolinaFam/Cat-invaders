@@ -6,8 +6,8 @@
 //  Copyright © 2020 student. All rights reserved.
 //
 
-import Foundation
+import UIKit
 
-class CatEnemy {
+class CatEnemy: UIImageView {
     
 }
