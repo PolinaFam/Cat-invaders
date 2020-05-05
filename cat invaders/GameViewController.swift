@@ -143,28 +143,32 @@ class GameViewController: UIViewController {
         moveCatEnemyCd += 1
         
         if moveCatEnemyCd >= 5 {
+            var toChangeDirection2N = false
+            var toChangeDirectionN = false
             for i in 0...3 {
                 for j in 0...2 {
-                    
                     var catEnemyX: CGFloat
+                    
                     if (j % 2 == 0) {
                         catEnemyX = catEnemies[i][j].frame.origin.x + view.frame.width * 0.01 * CGFloat(moveDirection2N)
                         catEnemies[i][j].frame.origin.x += view.frame.width * 0.01 * CGFloat(moveDirection2N)
-                        if (catEnemyX < 0) {
-                            moveDirection2N = 1
-                        }
-                        if (catEnemyX  + catEnemies[i][j].frame.width > view.frame.width) {
-                            moveDirection2N = -1
+                        if ((catEnemyX < 0) || (catEnemyX  + catEnemies[i][j].frame.width > view.frame.width)) {
+                            toChangeDirection2N = true
                         }
                     } else {
-//
-//                        catEnemyX = catEnemies[i][j].frame.origin.x + view.frame.width * 0.01 * CGFloat(moveDirectionN)
-//                        catEnemies[i][j].frame.origin.x += view.frame.width * 0.01 * CGFloat(moveDirectionN)
-//                        if ((catEnemyX < 0) || (catEnemyX + catEnemies[i][j].frame.width > view.frame.width)) {
-//                            moveDirectionN *= -1
-//                        }
+                        catEnemyX = catEnemies[i][j].frame.origin.x + view.frame.width * 0.01 * CGFloat(moveDirectionN)
+                        catEnemies[i][j].frame.origin.x += view.frame.width * 0.01 * CGFloat(moveDirectionN)
+                        if ((catEnemyX < 0) || (catEnemyX + catEnemies[i][j].frame.width > view.frame.width)) {
+                            toChangeDirectionN = true
+                        }
                     }
                 }
+            }
+            if toChangeDirection2N {
+                moveDirection2N *= -1
+            }
+            if toChangeDirectionN {
+                moveDirectionN *= -1
             }
             moveCatEnemyCd = 0
         }
