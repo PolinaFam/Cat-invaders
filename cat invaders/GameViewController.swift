@@ -61,6 +61,34 @@ class GameViewController: UIViewController {
         }
     }
     
+    func drawSpaceShip() {
+        spaceShip.frame = CGRect(x: view.frame.width * 0.35,
+                                 y: view.frame.height - view.frame.width * 0.3 - CGFloat(20),
+                                 width: view.frame.width * 0.3,
+                                 height: view.frame.width * 0.3)
+    }
+    
+    func drawCatEnemies() {
+        for i in 0...3 {
+            var catEnemiesX = [CatEnemy]()
+            for j in 0...2 {
+                let catEnemyFrame = CGRect(x:view.frame.width * 0.20 * CGFloat(i) + view.frame.width * 0.1,
+                                           y:view.frame.width * 0.20 * CGFloat(j) + scoreLabel.frame.origin.y + scoreLabel.frame.height + 10,
+                                           width: view.frame.width * 0.20,
+                                           height: view.frame.width * 0.20)
+                let newCatEnemy = CatEnemy(frame: catEnemyFrame)
+                newCatEnemy.image = #imageLiteral(resourceName: "cat-enemy")
+                view.addSubview(newCatEnemy)
+                catEnemiesX.append(newCatEnemy)
+            }
+            catEnemies.append(catEnemiesX)
+        }
+    }
+    
+    func updateScoreLabel() {
+        scoreLabel.text = String(score)
+    }
+    
     @objc func startTimer() {
         let start = mach_absolute_time()
         
@@ -75,10 +103,6 @@ class GameViewController: UIViewController {
         } else {
             startTimer()
         }
-    }
-    
-    func updateScoreLabel() {
-        scoreLabel.text = String(score)
     }
     
     func fireSpaceShipBullet() {
@@ -201,29 +225,4 @@ class GameViewController: UIViewController {
             moveCatEnemyCd = 0
         }
     }
-    
-    func drawSpaceShip() {
-        spaceShip.frame = CGRect(x: view.frame.width * 0.35,
-                                 y: view.frame.height - view.frame.width * 0.3 - CGFloat(20),
-                                 width: view.frame.width * 0.3,
-                                 height: view.frame.width * 0.3)
-    }
-    
-    func drawCatEnemies() {
-        for i in 0...3 {
-            var catEnemiesX = [CatEnemy]()
-            for j in 0...2 {
-                let catEnemyFrame = CGRect(x:view.frame.width * 0.20 * CGFloat(i) + view.frame.width * 0.1,
-                                           y:view.frame.width * 0.20 * CGFloat(j) + scoreLabel.frame.origin.y + scoreLabel.frame.height + 10,
-                                           width: view.frame.width * 0.20,
-                                           height: view.frame.width * 0.20)
-                let newCatEnemy = CatEnemy(frame: catEnemyFrame)
-                newCatEnemy.image = #imageLiteral(resourceName: "cat-enemy")
-                view.addSubview(newCatEnemy)
-                catEnemiesX.append(newCatEnemy)
-            }
-            catEnemies.append(catEnemiesX)
-        }
-    }
-
 }
