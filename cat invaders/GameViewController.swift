@@ -11,11 +11,16 @@ import UIKit
 class GameViewController: UIViewController {
     
     var score = 0
+    
+    var moveDirection2N = 1
+    var moveDirectionN = -1
+    var moveCatEnemyCd = 5
+    
     var spaceShipShootCd = 20
     var spaceShipBullets = [UIImageView]()
     
     var catEnemies = [[CatEnemy]]()
-    var catEnemyShootCd = 35
+    var catEnemyShootCd = 30
     var catEnemyBullets = [UIImageView]()
     
     @IBOutlet weak var spaceShip: UIImageView!
@@ -94,7 +99,7 @@ class GameViewController: UIViewController {
     func fireCatEnemyBullet() {
         catEnemyShootCd += 1
         
-        if catEnemyShootCd >= 35 {
+        if catEnemyShootCd >= 30 {
             let catEnemy = catEnemies[Int.random(in: 0...3)][Int.random(in: 0...2)]
             let bulletFrame = CGRect (x: catEnemy.frame.origin.x + catEnemy.frame.width * 0.4,
                                       y: catEnemy.frame.origin.y + catEnemy.frame.height,
@@ -111,6 +116,7 @@ class GameViewController: UIViewController {
     func doMove() {
         moveSpaceShipBullets()
         moveCatEnemyBullets()
+        moveCatEnemy()
     }
     
     func moveSpaceShipBullets() {
@@ -133,6 +139,37 @@ class GameViewController: UIViewController {
         }
     }
     
+    func moveCatEnemy() {
+        moveCatEnemyCd += 1
+        
+        if moveCatEnemyCd >= 5 {
+            for i in 0...3 {
+                for j in 0...2 {
+                    
+                    var catEnemyX: CGFloat
+                    if (j % 2 == 0) {
+                        catEnemyX = catEnemies[i][j].frame.origin.x + view.frame.width * 0.01 * CGFloat(moveDirection2N)
+                        catEnemies[i][j].frame.origin.x += view.frame.width * 0.01 * CGFloat(moveDirection2N)
+                        if (catEnemyX < 0) {
+                            moveDirection2N = 1
+                        }
+                        if (catEnemyX  + catEnemies[i][j].frame.width > view.frame.width) {
+                            moveDirection2N = -1
+                        }
+                    } else {
+//
+//                        catEnemyX = catEnemies[i][j].frame.origin.x + view.frame.width * 0.01 * CGFloat(moveDirectionN)
+//                        catEnemies[i][j].frame.origin.x += view.frame.width * 0.01 * CGFloat(moveDirectionN)
+//                        if ((catEnemyX < 0) || (catEnemyX + catEnemies[i][j].frame.width > view.frame.width)) {
+//                            moveDirectionN *= -1
+//                        }
+                    }
+                }
+            }
+            moveCatEnemyCd = 0
+        }
+    }
+    
     func drawSpaceShip() {
         spaceShip.frame = CGRect(x: view.frame.width * 0.35,
                                  y: view.frame.height * 0.8,
@@ -145,7 +182,7 @@ class GameViewController: UIViewController {
             var catEnemiesX = [CatEnemy]()
             for j in 0...2 {
                 let catEnemyFrame = CGRect(x:view.frame.width * 0.20 * CGFloat(i) + view.frame.width * 0.1,
-                                           y:view.frame.width * 0.20 * CGFloat(j + 1),
+                                           y:view.frame.width * 0.20 * CGFloat(j) + 50,
                                            width: view.frame.width * 0.20,
                                            height: view.frame.width * 0.20)
                 let newCatEnemy = CatEnemy(frame: catEnemyFrame)
