@@ -90,18 +90,20 @@ class GameViewController: UIViewController {
     }
     
     @objc func startTimer() {
-        let start = mach_absolute_time()
-        
-        fireSpaceShipBullet()
-        fireCatEnemyBullet()
-        doMove()
-        
-        let end = mach_absolute_time()
-        let time = Double(start/1000000000) + Double(1.0/30.0) - Double(end/1000000000)
-        if (time > 0) {
-            perform(#selector(startTimer), with: nil, afterDelay: time)
-        } else {
-            startTimer()
+        if !isGameOver {
+            let start = mach_absolute_time()
+            
+            fireSpaceShipBullet()
+            //fireCatEnemyBullet()
+            doMove()
+            
+            let end = mach_absolute_time()
+            let time = Double(start/1000000000) + Double(1.0/30.0) - Double(end/1000000000)
+            if (time > 0) {
+                perform(#selector(startTimer), with: nil, afterDelay: time)
+            } else {
+                startTimer()
+            }
         }
     }
     
@@ -125,7 +127,7 @@ class GameViewController: UIViewController {
     func fireCatEnemyBullet() {
         catEnemyShootCd += 1
         
-        if (catEnemyShootCd >= 30 && !isGameOver) {
+        if (catEnemyShootCd >= 30) {
             var catEnemy = catEnemies[Int.random(in: 0...3)][Int.random(in: 0...2)]
             while (catEnemy.isHidden == true) {
                 catEnemy = catEnemies[Int.random(in: 0...3)][Int.random(in: 0...2)]
@@ -164,7 +166,7 @@ class GameViewController: UIViewController {
                             
                             if (liveCatEnemies == 0) {
                                 isGameOver = true
-                                print("Game over")
+                                gameOver(result: "win")
                                 return
                             }
                         }
@@ -191,7 +193,7 @@ class GameViewController: UIViewController {
                 catEnemyBullets[number].removeFromSuperview()
                 catEnemyBullets.remove(at: number)
                 isGameOver = true
-                print("Game over")
+                gameOver(result: "loss")
                 return
             }
         }
@@ -229,6 +231,15 @@ class GameViewController: UIViewController {
                 moveDirectionN *= -1
             }
             moveCatEnemyCd = 0
+        }
+    }
+    
+    func gameOver (result: String) {
+        if result == "loss" {
+            performSegue(withIdentifier: result, sender: self)
+        }
+        if result == "win" {
+            performSegue(withIdentifier: result, sender: self)
         }
     }
 }
