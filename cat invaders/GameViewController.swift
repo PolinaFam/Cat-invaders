@@ -15,6 +15,8 @@ class GameViewController: UIViewController {
     var spaceShipBullets = [UIImageView]()
     
     var catEnemies = [[CatEnemy]]()
+    var catEnemyShootCd = 35
+    var catEnemyBullets = [UIImageView]()
     
     @IBOutlet weak var spaceShip: UIImageView!
     @IBOutlet weak var scoreLabel: UILabel!
@@ -42,24 +44,25 @@ class GameViewController: UIViewController {
     
     func moveShipToLeft(xCoordinates: CGFloat) {
         if (spaceShip.center.x > spaceShip.frame.width/2) {
-            spaceShip.center.x -= 15
+            spaceShip.center.x -= spaceShip.frame.width * 0.25
         }
     }
     
     func moveShipToRight(xCoordinates: CGFloat) {
         if (spaceShip.center.x < UIScreen.main.bounds.width - spaceShip.frame.width/2) {
-            spaceShip.center.x += 15
+            spaceShip.center.x += spaceShip.frame.width * 0.25
         }
     }
     
     @objc func startTimer() {
         let start = mach_absolute_time()
         
-        fireBullet()
+        fireSpaceShipBullet()
+        fireCatEnemyBullet()
         doMove()
         
         let end = mach_absolute_time()
-        let time = Double(start/1000000000) + Double(1.0/60.0) - Double(end/1000000000)
+        let time = Double(start/1000000000) + Double(1.0/30.0) - Double(end/1000000000)
         if (time > 0) {
             perform(#selector(startTimer), with: nil, afterDelay: time)
         } else {
@@ -71,7 +74,7 @@ class GameViewController: UIViewController {
         scoreLabel.text = String(score)
     }
     
-    func fireBullet() {
+    func fireSpaceShipBullet() {
         spaceShipShootCd += 1
         
         if spaceShipShootCd >= 20 {
@@ -88,8 +91,26 @@ class GameViewController: UIViewController {
         }
     }
     
+    func fireCatEnemyBullet() {
+        catEnemyShootCd += 1
+        
+        if catEnemyShootCd >= 35 {
+            let catEnemy = catEnemies[Int.random(in: 0...3)][Int.random(in: 0...2)]
+            let bulletFrame = CGRect (x: catEnemy.frame.origin.x + catEnemy.frame.width * 0.4,
+                                      y: catEnemy.frame.origin.y + catEnemy.frame.height,
+                                      width: catEnemy.frame.width * 0.2,
+                                      height: catEnemy.frame.height * 0.3)
+            let newBullet = UIImageView(frame: bulletFrame)
+            newBullet.image = #imageLiteral(resourceName: "enemyBullet")
+            view.addSubview(newBullet)
+            catEnemyBullets.append(newBullet)
+            catEnemyShootCd = 0
+        }
+    }
+    
     func doMove() {
         moveSpaceShipBullets()
+        moveCatEnemyBullets()
     }
     
     func moveSpaceShipBullets() {
@@ -98,6 +119,16 @@ class GameViewController: UIViewController {
             if item.frame.origin.y < -item.frame.height {
                 spaceShipBullets[number].removeFromSuperview()
                 spaceShipBullets.remove(at: number)
+            }
+        }
+    }
+    
+    func moveCatEnemyBullets() {
+        for (number, item) in catEnemyBullets.enumerated() {
+            item.frame.origin.y += 10
+            if item.frame.origin.y > item.frame.height + view.frame.height {
+                catEnemyBullets[number].removeFromSuperview()
+                catEnemyBullets.remove(at: number)
             }
         }
     }
