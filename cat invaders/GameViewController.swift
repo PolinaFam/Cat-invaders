@@ -14,12 +14,15 @@ class GameViewController: UIViewController {
     var spaceShipShootCd = 25
     var spaceShipBullets = [UIImageView]()
     
+    var catEnemies = [[CatEnemy]]()
+    
     @IBOutlet weak var spaceShip: UIImageView!
     @IBOutlet weak var scoreLabel: UILabel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        drawSpaceShip()
         updateScoreLabel()
         startTimer()
     }
@@ -28,7 +31,7 @@ class GameViewController: UIViewController {
         for touch in touches {
             let location = touch.location(in: view)
             
-            if(location.x < view.frame.size.width/2){
+            if(location.x < view.frame.size.width/2) {
                 moveShipToLeft(xCoordinates: location.x)
             } else {
                 moveShipToRight(xCoordinates: location.x)
@@ -36,19 +39,34 @@ class GameViewController: UIViewController {
         }
     }
     
-    func moveShipToLeft(xCoordinates: CGFloat){
-        if (spaceShip.center.x > 65) {
+    func moveShipToLeft(xCoordinates: CGFloat) {
+        if (spaceShip.center.x > spaceShip.frame.width/2) {
             spaceShip.center.x -= 15
         }
     }
     
-    func moveShipToRight(xCoordinates: CGFloat){
-        if (spaceShip.center.x < UIScreen.main.bounds.width - 65) {
+    func moveShipToRight(xCoordinates: CGFloat) {
+        if (spaceShip.center.x < UIScreen.main.bounds.width - spaceShip.frame.width/2) {
             spaceShip.center.x += 15
         }
     }
     
-    func updateScoreLabel(){
+    @objc func startTimer() {
+        let start = mach_absolute_time()
+        
+        fireBullet()
+        doMove()
+        
+        let end = mach_absolute_time()
+        let time = Double(start/1000000000) + Double(1.0/30.0) - Double(end/1000000000)
+        if (time > 0) {
+            perform(#selector(startTimer), with: nil, afterDelay: time)
+        } else {
+            startTimer()
+        }
+    }
+    
+    func updateScoreLabel() {
         scoreLabel.text = String(score)
     }
     
@@ -69,7 +87,7 @@ class GameViewController: UIViewController {
         }
     }
     
-    func doMove(){
+    func doMove() {
         for (number, item) in spaceShipBullets.enumerated() {
             item.frame.origin.y -= 10
             if item.frame.origin.y < -item.frame.height {
@@ -79,19 +97,12 @@ class GameViewController: UIViewController {
         }
     }
     
-    @objc func startTimer(){
-        let start = mach_absolute_time()
-        
-        fireBullet()
-        doMove()
-        
-        let end = mach_absolute_time()
-        let time = Double(start/1000000000) + Double(1.0/30.0) - Double(end/1000000000)
-        if (time > 0) {
-            perform(#selector(startTimer), with: nil, afterDelay: time)
-        } else {
-            startTimer()
-        }
+    func drawSpaceShip() {
+        spaceShip.frame = CGRect(x: view.frame.width * 0.35,
+                                 y: view.frame.height * 0.8,
+                                 width: view.frame.width * 0.3,
+                                 height: view.frame.width * 0.3)
     }
+    
 
 }
