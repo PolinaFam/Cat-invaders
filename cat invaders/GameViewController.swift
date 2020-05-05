@@ -11,6 +11,8 @@ import UIKit
 class GameViewController: UIViewController {
     
     var score = 0
+    var liveCatEnemies = 12
+    var isGameOver = false
     
     var moveDirection2N = 1
     var moveDirectionN = -1
@@ -99,8 +101,11 @@ class GameViewController: UIViewController {
     func fireCatEnemyBullet() {
         catEnemyShootCd += 1
         
-        if catEnemyShootCd >= 30 {
-            let catEnemy = catEnemies[Int.random(in: 0...3)][Int.random(in: 0...2)]
+        if (catEnemyShootCd >= 30 && !isGameOver) {
+            var catEnemy = catEnemies[Int.random(in: 0...3)][Int.random(in: 0...2)]
+            while (catEnemy.isHidden == true) {
+                catEnemy = catEnemies[Int.random(in: 0...3)][Int.random(in: 0...2)]
+            }
             let bulletFrame = CGRect (x: catEnemy.frame.origin.x + catEnemy.frame.width * 0.4,
                                       y: catEnemy.frame.origin.y + catEnemy.frame.height,
                                       width: catEnemy.frame.width * 0.2,
@@ -125,8 +130,31 @@ class GameViewController: UIViewController {
             if item.frame.origin.y < -item.frame.height {
                 spaceShipBullets[number].removeFromSuperview()
                 spaceShipBullets.remove(at: number)
+            } else {
+                for i in 0...3 {
+                    for j in 0...2 {
+                        if (item.frame.intersects(catEnemies[i][j].frame) && catEnemies[i][j].isHidden == false) {
+                            spaceShipBullets[number].removeFromSuperview()
+                            spaceShipBullets.remove(at: number)
+                            killCatEnemy(cat: catEnemies[i][j])
+                            
+                            if (liveCatEnemies == 0) {
+                                isGameOver = true
+                                print("Game over")
+                                return
+                            }
+                        }
+                    }
+                }
             }
         }
+    }
+    
+    func killCatEnemy(cat: CatEnemy) {
+        cat.isHidden = true
+        score += 1
+        updateScoreLabel()
+        liveCatEnemies -= 1
     }
     
     func moveCatEnemyBullets() {
@@ -182,9 +210,6 @@ class GameViewController: UIViewController {
     }
     
     func drawCatEnemies() {
-        print(view.frame.origin.y)
-        print(scoreLabel.frame.origin.y)
-        print(scoreLabel.frame.height)
         for i in 0...3 {
             var catEnemiesX = [CatEnemy]()
             for j in 0...2 {
