@@ -176,17 +176,20 @@ class GameViewController: UIViewController {
     
     func drawSpaceShip() {
         spaceShip.frame = CGRect(x: view.frame.width * 0.35,
-                                 y: view.frame.height * 0.8,
+                                 y: view.frame.height - view.frame.width * 0.3 - CGFloat(20),
                                  width: view.frame.width * 0.3,
                                  height: view.frame.width * 0.3)
     }
     
     func drawCatEnemies() {
+        print(view.frame.origin.y)
+        print(scoreLabel.frame.origin.y)
+        print(scoreLabel.frame.height)
         for i in 0...3 {
             var catEnemiesX = [CatEnemy]()
             for j in 0...2 {
                 let catEnemyFrame = CGRect(x:view.frame.width * 0.20 * CGFloat(i) + view.frame.width * 0.1,
-                                           y:view.frame.width * 0.20 * CGFloat(j) + 50,
+                                           y:view.frame.width * 0.20 * CGFloat(j) + scoreLabel.frame.origin.y + scoreLabel.frame.height + 10,
                                            width: view.frame.width * 0.20,
                                            height: view.frame.width * 0.20)
                 let newCatEnemy = CatEnemy(frame: catEnemyFrame)
