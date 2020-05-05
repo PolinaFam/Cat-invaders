@@ -187,6 +187,12 @@ class GameViewController: UIViewController {
             if item.frame.origin.y > item.frame.height + view.frame.height {
                 catEnemyBullets[number].removeFromSuperview()
                 catEnemyBullets.remove(at: number)
+            } else if item.frame.intersects(spaceShip.frame) {
+                catEnemyBullets[number].removeFromSuperview()
+                catEnemyBullets.remove(at: number)
+                isGameOver = true
+                print("Game over")
+                return
             }
         }
     }
