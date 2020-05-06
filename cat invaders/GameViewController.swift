@@ -10,9 +10,10 @@ import UIKit
 
 class GameViewController: UIViewController {
     
-    var score = 0
     var liveCatEnemies = 12
     var isGameOver = false
+    
+    var game = Game()
     
     var moveDirection2N = 1
     var moveDirectionN = -1
@@ -86,7 +87,7 @@ class GameViewController: UIViewController {
     }
     
     func updateScoreLabel() {
-        scoreLabel.text = String(score)
+        scoreLabel.text = String(game.score)
     }
     
     @objc func startTimer() {
@@ -94,7 +95,7 @@ class GameViewController: UIViewController {
             let start = mach_absolute_time()
             
             fireSpaceShipBullet()
-            //fireCatEnemyBullet()
+            fireCatEnemyBullet()
             doMove()
             
             let end = mach_absolute_time()
@@ -178,7 +179,7 @@ class GameViewController: UIViewController {
     
     func killCatEnemy(cat: CatEnemy) {
         cat.isHidden = true
-        score += 1
+        game.score += 1
         updateScoreLabel()
         liveCatEnemies -= 1
     }
@@ -235,11 +236,21 @@ class GameViewController: UIViewController {
     }
     
     func gameOver (result: String) {
-        if result == "loss" {
-            performSegue(withIdentifier: result, sender: self)
-        }
         if result == "win" {
-            performSegue(withIdentifier: result, sender: self)
+            game.saveGame()
+        }
+        performSegue(withIdentifier: result, sender: self)
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "loss" {
+            let lossViewController = segue.destination as! LossViewController
+            lossViewController.score = game.score
+        }
+        if segue.identifier == "win" {
+            let winViewController = segue.destination as! WinViewController
+            winViewController.score = game.score
+            winViewController.highScore = game.highScore
         }
     }
 }
