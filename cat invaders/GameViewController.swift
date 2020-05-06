@@ -236,9 +236,7 @@ class GameViewController: UIViewController {
     }
     
     func gameOver (result: String) {
-        if result == "win" {
-            game.saveGame()
-        }
+        game.saveGame()
         performSegue(withIdentifier: result, sender: self)
     }
     
@@ -246,6 +244,7 @@ class GameViewController: UIViewController {
         if segue.identifier == "loss" {
             let lossViewController = segue.destination as! LossViewController
             lossViewController.score = game.score
+            lossViewController.highScore = game.highScore
         }
         if segue.identifier == "win" {
             let winViewController = segue.destination as! WinViewController
